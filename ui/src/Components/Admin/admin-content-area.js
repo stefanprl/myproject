@@ -10,8 +10,6 @@ import './admin-style.css';
 
 function AdminContentArea(props) {
 
-
-
     if(props.isLogged) {
         return(
             <div className="footer-padding">
@@ -39,6 +37,7 @@ function AdminContentArea(props) {
                 <Grid item lg={10} md={9} xs={12}>
                     <div className="main-content-area">
                         <Tabs
+                            handleChange={props.handleChange}
                             deleteUser={props.deleteUser}
                             getUsersData={props.getUsersData}
                             userType={props.userType}
@@ -47,8 +46,20 @@ function AdminContentArea(props) {
                             basicUsers={props.basicUsers}
                             companyUsers={props.companyUsers}
                             adminUsers={props.adminUsers}
+                            getUser={props.getUser}
+
+                            defaultUsername={props.defaultUsername}
+                            defaultFName={props.defaultFName}
+                            defaultLName={props.defaultLName}
+
+                            editedUsername={props.editedUsername}
+                            editedFName={props.editedFName}
+                            editedLName={props.editedLName}
+                            updateUser={props.updateUser}
+                            selectedId={props.selectedId}
 
                         />
+
                     </div>
 
                 </Grid>

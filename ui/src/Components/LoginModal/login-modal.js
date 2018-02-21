@@ -34,8 +34,8 @@ class SimpleModal extends React.Component {
       <div>
         
         <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+          aria-labelledby="Login/Registration panel"
+          aria-describedby="Here you can login or register a new account on the platform"
           open={this.props.openState}
           onClose={this.props.closeState}
         >

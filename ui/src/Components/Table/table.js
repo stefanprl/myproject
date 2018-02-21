@@ -21,6 +21,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import FilterListIcon from 'material-ui-icons/FilterList';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import { lighten } from 'material-ui/styles/colorManipulator';
+import EditUser from '../Admin/admin-edit-user.js';
 
 const columnData = [
     { id: 'username', numeric: false, disablePadding: true, label: 'Username' },
@@ -189,6 +190,7 @@ class EnhancedTable extends React.Component {
             data: this.props.usersData.sort((a, b) => (a.name < b.name ? -1 : 1)),
             page: 0,
             rowsPerPage: 5,
+            open: false,
         };
     }
 
@@ -220,6 +222,7 @@ class EnhancedTable extends React.Component {
     handleClick = (event, id) => {
         const { selected } = this.state;
         const selectedIndex = selected.indexOf(id);
+
         let newSelected = [];
 
         if (selectedIndex === -1) {
@@ -250,7 +253,6 @@ class EnhancedTable extends React.Component {
 
 
     handleDeleteUsers = () => {
-        debugger;
         let idsToBeDeleted = this.state.selected;
         for(let i=0; i < idsToBeDeleted.length; i++){
             this.props.deleteUser(idsToBeDeleted[i]);
@@ -268,8 +270,33 @@ class EnhancedTable extends React.Component {
     };
 
 
+    handleEditUser = () => {
+
+        let selectedId= this.state.selected;
+        this.props.getUser(selectedId);
+        this.setState({open: true});
+        console.log(this.state.selected[0]);
+    };
+
+
+
+    handleCloseModal = () => {
+        this.setState({ open: false,
+        selected: []});
+    };
+
+    componentDidMount(){
+        if(this.props.userRole === 1){
+            this.props.getUsersData(1);
+            this.props.getUsersData(2);
+            this.props.getUsersData(3);
+
+        }
+    }
+
+
+
     render() {
-        console.log(this.state.selected);
         const { classes } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -308,7 +335,7 @@ class EnhancedTable extends React.Component {
                                         <TableCell numeric>{n.createdAt}</TableCell>
                                         <TableCell numeric>{n.updatedAt}</TableCell>
                                         <TableCell padding="checkbox">
-                                            <IconButton variant="fab" color="primary" aria-label="edit">
+                                            <IconButton variant="fab" color="primary" aria-label="edit" onClick={this.handleEditUser}>
                                                 <ModeEdit/>
                                             </IconButton>
 
@@ -341,6 +368,21 @@ class EnhancedTable extends React.Component {
                             </TableRow>
                         </TableFooter>
                     </Table>
+                    <EditUser
+                        open={this.state.open}
+                        closeModal={this.handleCloseModal}
+                        handleChange={this.props.handleChange}
+                        updateUser={this.props.updateUser}
+                        selectedId={this.state.selected}
+
+                        defaultUsername={this.props.defaultUsername}
+                        defaultFirstName={this.props.defaultFName}
+                        defaultLastName={this.props.defaultLName}
+
+                        editedUsername={this.props.editedUsername}
+                        editedFName={this.props.editedFName}
+                        editedLName={this.props.editedLName}
+                    />
                 </div>
             </Paper>
         );

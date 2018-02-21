@@ -70,7 +70,7 @@ class TabsWrappedLabel extends Component {
     };
 
 
-    componentWillMount(){
+    componentDidMount(){
         if(this.props.userRole === 1){
             this.props.getUsersData(1);
             this.props.getUsersData(2);
@@ -80,12 +80,6 @@ class TabsWrappedLabel extends Component {
     };
 
     componentDidUpdate(){
-        console.log('Chiar am actualizat componenta!!!');
-        console.log(this.props.basicUsers);
-        console.log(this.props.companyUsers);
-        console.log(this.props.adminUsers);
-
-
     }
 
   render() {
@@ -108,6 +102,16 @@ class TabsWrappedLabel extends Component {
                 deleteUser={this.props.deleteUser}
                 usersData={this.props.basicUsers}
                 getUsersData={this.props.getUsersData}
+                getUser={this.props.getUser}
+                defaultUsername={this.props.defaultUsername}
+                defaultFName={this.props.defaultFName}
+                defaultLName={this.props.defaultLName}
+                handleChange={this.props.handleChange}
+                editedUsername={this.props.editedUsername}
+                editedFName={this.props.editedFName}
+                editedLName={this.props.editedLName}
+                updateUser={this.props.updateUser}
+                selectedId={this.props.selectedId}
 
             /></TabContainer>}
         {value === 1 && <TabContainer>
@@ -115,12 +119,32 @@ class TabsWrappedLabel extends Component {
                 deleteUser={this.props.deleteUser}
                 usersData={this.props.companyUsers}
                 getUsersData={this.props.getUsersData}
+                getUser={this.props.getUser}
+                defaultUsername={this.props.defaultUsername}
+                defaultFName={this.props.defaultFName}
+                defaultLName={this.props.defaultLName}
+                handleChange={this.props.handleChange}
+                editedUsername={this.props.editedUsername}
+                editedFName={this.props.editedFName}
+                editedLName={this.props.editedLName}
+                updateUser={this.props.updateUser}
+                selectedId={this.props.selectedId}
            /></TabContainer>}
         {value === 2 && <TabContainer>
             <EnhancedTable
                 deleteUser={this.props.deleteUser}
                 usersData={this.props.adminUsers}
                 getUsersData={this.props.getUsersData}
+                getUser={this.props.getUser}
+                defaultUsername={this.props.defaultUsername}
+                defaultFName={this.props.defaultFName}
+                defaultLName={this.props.defaultLName}
+                handleChange={this.props.handleChange}
+                editedUsername={this.props.editedUsername}
+                editedFName={this.props.editedFName}
+                editedLName={this.props.editedLName}
+                updateUser={this.props.updateUser}
+                selectedId={this.props.selectedId}
             /></TabContainer>}
       </div>
     );

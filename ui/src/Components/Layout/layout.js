@@ -44,6 +44,15 @@ class Layout extends Component {
             selectedLastName: '',
             selectedPassword: '',
 
+            defaultUsername: '',
+            defaultFName: '',
+            defaultLName: '',
+
+            editedUsername: '',
+            editedFName: '',
+            editedLName: '',
+            selectedId: '',
+
             basicUsersData: [],
             companyUsersData: [],
             adminUsersData: [],
@@ -196,16 +205,59 @@ class Layout extends Component {
             });
     };
 
+
+
+    getUser = (id) =>{
+
+        request.get('/users/'+id, {
+        })
+            .then((response) => {
+                console.log("User " + id + " is here!");
+                this.setState({ defaultUsername: response.data.username,
+                                defaultFName: response.data.firstName,
+                                defaultLName: response.data.lastName
+                });
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+
+    updateUser =() => {
+        debugger;
+        let selectedId = this.state.selectedId;
+        let userR = this.state.editedUsername;
+        let fName = this.state.editedFName;
+        let lName = this.state.editedLName;
+        request.put('/users/'+selectedId, {
+            username : userR,
+            firstName : fName,
+            lastName : lName,
+    })
+            .then((response) => {
+                console.log("User " + selectedId + " is here!");
+
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+
     handleTable = (value) => {
         this.setState({userType: value});
     };
 
     componentDidMount(){
-        if(this.props.userRole === 1){
-            this.props.getUsersData(1);
-            this.props.getUsersData(2);
-            this.props.getUsersData(3);
-
+        if(this.state.userRole === 1){
+            this.getUsersData(1);
+            this.getUsersData(2);
+            this.getUsersData(3);
         }
     }
 
@@ -234,24 +286,42 @@ class Layout extends Component {
           <Grid item xs={12}>
               {/*{this.state.userRole===null && <LandingPage isLogged={this.state.isLogged}/>}*/}
               {this.state.userRole===1 && this.state.isLogged===true && <AdminContentArea
+
                   addUser={this.state.addUser}
+                  isLogged={this.state.isLogged}
+
                   fName={this.state.selectedFirstName}
                   lName={this.state.selectedLastName}
                   userR={this.state.selectedUsername}
                   pass={this.state.selectedPassword}
                   roleR={this.state.selectedRole}
+
                   clearFields={this.clearFields}
                   getUsersData={this.getUsersData}
+
                   basicUsers={this.state.basicUsersData}
                   companyUsers={this.state.companyUsersData}
                   adminUsers={this.state.adminUsersData}
+
                   userRole={this.state.userRole}
                   userType={this.state.userType}
+
                   registerRequest={this.registerRequest}
-                  isLogged={this.state.isLogged}
                   handleChange={this.handleChangeAdd}
                   handleTable={this.handleTable}
                   deleteUser={this.deleteUser}
+                  getUser={this.getUser}
+
+                  defaultUsername={this.state.defaultUsername}
+                  defaultFName={this.state.defaultFName}
+                  defaultLName={this.state.defaultLName}
+
+                  editedUsername={this.state.editedUsername}
+                  editedFName={this.state.editedFName}
+                  editedLName={this.state.editedLName}
+                  updateUser={this.updateUser}
+                  selectedId={this.state.selectedId}
+
               />}
               {/*{this.state.userRole===2 && this.state.isLogged===true && <CompanyContentArea isLogged={this.state.isLogged}/>}*/}
               {/*{this.state.userRole===3 && this.state.isLogged===true && <ContentArea isLogged={this.state.isLogged}/>}*/}
