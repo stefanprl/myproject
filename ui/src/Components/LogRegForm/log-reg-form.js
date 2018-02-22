@@ -87,7 +87,7 @@ class LogReg extends React.Component {
   };
 
 
-  registerRequest = () => {
+  registerRequestUser = () => {
 
       let userR = this.state.username;
       let passR = this.state.password;
@@ -244,7 +244,7 @@ class LogReg extends React.Component {
             
             <br></br>
             <br></br>
-            <Button onClick={this.registerRequest} variant="raised" color="secondary">Register</Button>
+            <Button onClick={this.registerRequestUser} variant="raised" color="secondary">Register</Button>
         
         
         

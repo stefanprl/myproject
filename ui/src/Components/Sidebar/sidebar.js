@@ -34,6 +34,7 @@ function Sidebar(props) {
               </Grid>
               
               <Grid item xs={12}>
+                  {props.userRole === 1 &&
                   <AdminMenu
                       userId="roles"
                       handleChange={props.handleChange}
@@ -44,8 +45,9 @@ function Sidebar(props) {
                       userR={props.userR}
                       pass={props.pass}
                       clearFields={props.clearFields}
-                  />
-              {/*<UserMenu/>*/}
+                  />}
+
+                  {props.userRole === 3 && <UserMenu/>}
               </Grid>
           </Grid>
         </div>

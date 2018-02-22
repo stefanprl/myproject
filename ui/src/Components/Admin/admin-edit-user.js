@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Input, {InputLabel} from 'material-ui/Input';
 import {FormControl, FormHelperText} from 'material-ui/Form';
-import Button from 'material-ui/Button';
-import request from '../../Utils/request.js';
 import Modal from 'material-ui/Modal';
 
 
@@ -116,7 +114,7 @@ function EditUser(props) {
 
                 <br></br>
                 <br></br>
-                    <Button onClick={props.updateUser} variant="raised" color="secondary">Update user</Button>
+
                 </div>
             </Modal>
         </div>

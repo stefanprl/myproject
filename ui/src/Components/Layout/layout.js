@@ -35,7 +35,7 @@ class Layout extends Component {
             isLogged: true,
             username: '',
             password: '',
-            userRole: 1,
+            userRole: 2,
             userType: '',
 
             selectedFirstName: '',
@@ -51,7 +51,6 @@ class Layout extends Component {
             editedUsername: '',
             editedFName: '',
             editedLName: '',
-            selectedId: '',
 
             basicUsersData: [],
             companyUsersData: [],
@@ -146,6 +145,12 @@ class Layout extends Component {
                 console.log(error);
             });
 
+        if(this.state.userRole === 1){
+            this.getUsersData(1);
+            this.getUsersData(2);
+            this.getUsersData(3);
+        }
+
 
     };
 
@@ -226,19 +231,18 @@ class Layout extends Component {
     };
 
 
-    updateUser =() => {
-        debugger;
-        let selectedId = this.state.selectedId;
+    updateUser =(id) => {
+
         let userR = this.state.editedUsername;
         let fName = this.state.editedFName;
         let lName = this.state.editedLName;
-        request.put('/users/'+selectedId, {
+        request.put('/users/'+id, {
             username : userR,
             firstName : fName,
             lastName : lName,
     })
             .then((response) => {
-                console.log("User " + selectedId + " is here!");
+                console.log("User " + id + " is here!");
 
 
 
@@ -246,6 +250,11 @@ class Layout extends Component {
             .catch((error) => {
                 console.log(error);
             });
+        if(this.state.userRole === 1){
+            this.getUsersData(1);
+            this.getUsersData(2);
+            this.getUsersData(3);
+        }
     };
 
 
@@ -320,10 +329,12 @@ class Layout extends Component {
                   editedFName={this.state.editedFName}
                   editedLName={this.state.editedLName}
                   updateUser={this.updateUser}
-                  selectedId={this.state.selectedId}
 
               />}
-              {/*{this.state.userRole===2 && this.state.isLogged===true && <CompanyContentArea isLogged={this.state.isLogged}/>}*/}
+              {this.state.userRole===2 && this.state.isLogged===true && <CompanyContentArea
+                  isLogged={this.state.isLogged}
+                  userRole={this.state.userRole}
+              />}
               {/*{this.state.userRole===3 && this.state.isLogged===true && <ContentArea isLogged={this.state.isLogged}/>}*/}
           </Grid>
       </Grid>

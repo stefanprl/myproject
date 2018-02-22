@@ -271,7 +271,6 @@ class EnhancedTable extends React.Component {
 
 
     handleEditUser = () => {
-
         let selectedId= this.state.selected;
         this.props.getUser(selectedId);
         this.setState({open: true});
@@ -285,14 +284,19 @@ class EnhancedTable extends React.Component {
         selected: []});
     };
 
-    componentDidMount(){
-        if(this.props.userRole === 1){
-            this.props.getUsersData(1);
-            this.props.getUsersData(2);
-            this.props.getUsersData(3);
+    // componentDidMount(){
+    //     if(this.props.userRole === 1){
+    //         this.props.getUsersData(1);
+    //         this.props.getUsersData(2);
+    //         this.props.getUsersData(3);
+    //
+    //     }
+    // }
+
+    componentWillReceiveProps(nextProps, nextContext){
 
         }
-    }
+
 
 
 

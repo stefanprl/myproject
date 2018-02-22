@@ -25,6 +25,7 @@ function AdminContentArea(props) {
                         userR={props.userR}
                         pass={props.pass}
                         clearFields={props.clearFields}
+                        userRole={props.userRole}
 
                     />
                     </div>
@@ -56,7 +57,6 @@ function AdminContentArea(props) {
                             editedFName={props.editedFName}
                             editedLName={props.editedLName}
                             updateUser={props.updateUser}
-                            selectedId={props.selectedId}
 
                         />
 

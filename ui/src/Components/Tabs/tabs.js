@@ -79,7 +79,12 @@ class TabsWrappedLabel extends Component {
         }
     };
 
-    componentDidUpdate(){
+    componentWillMount(){
+        if(this.state.userRole === 1){
+            this.props.getUsersData(1);
+            this.props.getUsersData(2);
+            this.props.getUsersData(3);
+        }
     }
 
   render() {
@@ -111,7 +116,6 @@ class TabsWrappedLabel extends Component {
                 editedFName={this.props.editedFName}
                 editedLName={this.props.editedLName}
                 updateUser={this.props.updateUser}
-                selectedId={this.props.selectedId}
 
             /></TabContainer>}
         {value === 1 && <TabContainer>
@@ -128,7 +132,6 @@ class TabsWrappedLabel extends Component {
                 editedFName={this.props.editedFName}
                 editedLName={this.props.editedLName}
                 updateUser={this.props.updateUser}
-                selectedId={this.props.selectedId}
            /></TabContainer>}
         {value === 2 && <TabContainer>
             <EnhancedTable
@@ -144,7 +147,6 @@ class TabsWrappedLabel extends Component {
                 editedFName={this.props.editedFName}
                 editedLName={this.props.editedLName}
                 updateUser={this.props.updateUser}
-                selectedId={this.props.selectedId}
             /></TabContainer>}
       </div>
     );
