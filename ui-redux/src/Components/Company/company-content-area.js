@@ -4,21 +4,17 @@ import Sidebar from '../Sidebar/sidebar.js';
 import '../Layout/layout.css';
 import LandingPage from '../LandingPage/landing-page.js';
 import TabsCompany from '../Tabs/tabs-company';
-import './company-style.css';
 
 function CompanyContentArea(props) {
 
     if(props.isLogged) {
         return(
             <Grid container spacing={24}>
-                <Grid item md={3} hidden={{smDown: true}}>
-                    <Sidebar
-                        userRole={props.userRole}
-                        handleChange={props.handleChange}
-                    />
+                <Grid item md={2} hidden={{smDown: true}}>
+                    <Sidebar />
 
                 </Grid>
-                <Grid item md={9} xs={12}>
+                <Grid item md={10} xs={12}>
                     <div className="main-content-area">
                         <TabsCompany />
                     </div>

@@ -8,8 +8,9 @@ import ContentArea from '../ContentArea/content-area.js';
 import CompanyContentArea from "../Company/company-content-area";
 import AdminContentArea from "../Admin/admin-content-area";
 import LandingPage from "../LandingPage/landing-page";
-import request from "../../Utils/request";
+import request from "../../Config/request";
 import SnackDialog from "../Snackbar/snack-dialog.js";
+import LTwo from './layoutTwo';
 
 
 
@@ -37,7 +38,6 @@ class Layout extends Component {
             password: '',
             userRole: 2,
             userType: '',
-            userId: null,
 
             selectedFirstName: '',
             selectedRole: '',
@@ -79,11 +79,11 @@ class Layout extends Component {
         this.setState({snackText: props})
     };
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
+    // handleChange = name => event => {
+    //     this.setState({
+    //         [name]: event.target.value,
+    //     });
+    // };
 
     handleChangeAdd = prop => event => {
         this.setState({ [prop]: event.target.value });
@@ -129,8 +129,7 @@ class Layout extends Component {
             password: passR,
             firstName: fName,
             lastName: lName,
-            userRoleId: role,
-            contactInfoId: 2
+            userRoleId: role
         })
             .then((response) => {
 
@@ -288,7 +287,6 @@ class Layout extends Component {
                     user={this.state.username}
                     pass={this.state.password}
                     role={this.state.userRole}
-                    userId={this.state.userId}
                 />
 
         </Grid>
@@ -296,6 +294,12 @@ class Layout extends Component {
           <div className="sub-header"></div>
         </Grid>
           <Grid item xs={12}>
+              <LTwo/>
+
+
+
+
+
               {/*{this.state.userRole===null && <LandingPage isLogged={this.state.isLogged}/>}*/}
               {this.state.userRole===1 && this.state.isLogged===true && <AdminContentArea
 
@@ -337,10 +341,8 @@ class Layout extends Component {
               {this.state.userRole===2 && this.state.isLogged===true && <CompanyContentArea
                   isLogged={this.state.isLogged}
                   userRole={this.state.userRole}
-                  handleChange={this.handleChange}
               />}
               {/*{this.state.userRole===3 && this.state.isLogged===true && <ContentArea isLogged={this.state.isLogged}/>}*/}
-              {this.state.userRole===null && this.state.isLogged===false && <LandingPage />}
           </Grid>
       </Grid>
           <Grid container spacing={0}>

@@ -7,7 +7,11 @@ import Typography from 'material-ui/Typography';
 import Input, { InputLabel} from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
 import Button from 'material-ui/Button';
-import request from '../../Utils/request.js';
+import request from '../../Config/request.js';
+import {connect} from "react-redux";
+
+
+import { initLogin } from '../../Actions/authentication';
 
 function TabContainer(props) {
   return (
@@ -31,7 +35,7 @@ const styles = theme => ({
 
 
 
-class LogReg extends React.Component {
+class LogRegC extends React.Component {
   state = {
         value: 0,
         username: '',
@@ -54,10 +58,6 @@ class LogReg extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
-  conditionalRender = () => {
-
-  };
-
   userInfoHandler = (props) => {
       this.setState({userInfo: props});
       // this.state.userInfo = props;
@@ -65,24 +65,25 @@ class LogReg extends React.Component {
 
   };
 
-
   loginRequest = () => {
       let user = this.state.username;
       let pass = this.state.password;
-      request.post('/users/login', {
-        username: user,
-        password: pass
-      })
-            .then((response) => {
-            // let userRole = response.data[0].userRoleId;
-              this.userInfoHandler(response.data);
-                this.props.closeState(true);
-                this.props.loginHandler(true);
 
-            })
-            .catch((error) => {
-            console.log(error);
-  });
+      this.props.login(this.state);
+      // request.post('/users/login', {
+      //   username: user,
+      //   password: pass
+      // })
+      //       .then((response) => {
+      //       // let userRole = response.data[0].userRoleId;
+      //         this.userInfoHandler(response.data);
+      //           this.props.closeState(true);
+      //           this.props.loginHandler(true);
+      //
+      //       })
+      //       .catch((error) => {
+      //       console.log(error);
+  // });
 
   };
 
@@ -99,8 +100,7 @@ class LogReg extends React.Component {
           password: passR,
           firstName: fName,
           lastName: lName,
-          userRoleId: 3,
-          contactInfoId: 2
+          userRoleId: 3
       })
           .then((response) => {
               this.userInfoHandler(response.data);
@@ -164,7 +164,7 @@ class LogReg extends React.Component {
             
             <br></br>
             <br></br>
-            <Button variant="raised" color="secondary" onClick={this.loginRequest}>Log in</Button>
+            <Button variant="raised" color="secondary" onClick={() => this.props.login(this.state)}>Log in</Button>
             
         </TabContainer>}
         {value === 1 && <TabContainer>
@@ -256,8 +256,24 @@ class LogReg extends React.Component {
   }
 }
 
-LogReg.propTypes = {
+LogRegC.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+    login: (valori) => dispatch(initLogin(valori)),
+});
+// const mapStateToProps = (state) => ({
+//
+//     //states used when a basic user registers on the platform
+//     value: state.authReducer.value,
+//     username: state.authReducer.username,
+//     password: state.authReducer.password,
+//     firstName: state.authReducer.firstName,
+//     lastName: state.authReducer.lastName,
+//     showPassword: state.authReducer.showPassword,
+// });
+
+const LogReg = connect(null, mapDispatchToProps)(LogRegC);
 
 export default withStyles(styles)(LogReg);

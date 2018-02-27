@@ -1,0 +1,14 @@
+.create-button {
+    display: block;
+    position: absolute;
+    margin-top: -60px;
+    left: 10vw;
+}
+
+.admin-menu-style{
+    padding-bottom: 30px;
+}
+
+.footer-padding {
+    padding-bottom: 50px;
+}

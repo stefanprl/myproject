@@ -6,7 +6,6 @@ import Grid  from 'material-ui/Grid';
 import UserMenu from '../User-menu/user-menu.js'
 import './sidebar.css';
 import AdminMenu from '../Admin/admin-menu';
-import CompanyMenu from '../Company/company-menu';
 
 const styles = {
   row: {
@@ -37,18 +36,6 @@ function Sidebar(props) {
               <Grid item xs={12}>
                   {props.userRole === 1 &&
                   <AdminMenu
-                      userId="roles"
-                      handleChange={props.handleChange}
-                      addUser={props.addUser}
-                      fName={props.fName}
-                      lName={props.lName}
-                      roleR={props.roleR}
-                      userR={props.userR}
-                      pass={props.pass}
-                      clearFields={props.clearFields}
-                  />}
-                  {props.userRole === 2 &&
-                  <CompanyMenu
                       userId="roles"
                       handleChange={props.handleChange}
                       addUser={props.addUser}
