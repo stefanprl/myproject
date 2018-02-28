@@ -10,6 +10,7 @@ const initialState = {
     firstName: '',
     lastName: '',
     showPassword: false,
+
 };
 
 const authReducer = (state = initialState, action) => {

@@ -294,7 +294,6 @@ class Layout extends Component {
           <div className="sub-header"></div>
         </Grid>
           <Grid item xs={12}>
-              <LTwo/>
 
 
 

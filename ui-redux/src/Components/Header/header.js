@@ -37,12 +37,6 @@ function MenuAppBar(props) {
               ReactJS AROBS
             </Typography>
               <LoginButton
-                            loginHandler={props.loginHandler}
-                            condRender={props.condRender}
-                            isLogged={props.isLogged}
-                            user={props.user}
-                            pass={props.pass}
-                            role={props.role}
                 />
                 
           </Toolbar>

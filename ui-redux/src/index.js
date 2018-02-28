@@ -4,6 +4,7 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Layout from './Components/Layout/layout';
+import Home from './Pages/home';
 import store, { history } from './Config/store';
 import {Provider} from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux'
@@ -17,7 +18,7 @@ ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <MuiThemeProvider theme={theme}>
-                <Layout />
+                <Home/>
             </MuiThemeProvider>
         </ConnectedRouter>
     </Provider>, document.getElementById('root'));

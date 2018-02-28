@@ -66,24 +66,11 @@ class LogRegC extends React.Component {
   };
 
   loginRequest = () => {
-      let user = this.state.username;
-      let pass = this.state.password;
 
       this.props.login(this.state);
-      // request.post('/users/login', {
-      //   username: user,
-      //   password: pass
-      // })
-      //       .then((response) => {
-      //       // let userRole = response.data[0].userRoleId;
-      //         this.userInfoHandler(response.data);
       //           this.props.closeState(true);
-      //           this.props.loginHandler(true);
       //
-      //       })
-      //       .catch((error) => {
-      //       console.log(error);
-  // });
+      //         this.userInfoHandler(response.data);
 
   };
 
@@ -164,7 +151,7 @@ class LogRegC extends React.Component {
             
             <br></br>
             <br></br>
-            <Button variant="raised" color="secondary" onClick={() => this.props.login(this.state)}>Log in</Button>
+            <Button variant="raised" color="secondary" onClick={this.loginRequest}>Log in</Button>
             
         </TabContainer>}
         {value === 1 && <TabContainer>

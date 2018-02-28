@@ -29,7 +29,7 @@ const adminReducer = (state = initialState, action) => {
             console.log('Am ajuns in reducer');
             return state;
         case 'UPDATE_USER':
-            console.log('Am ajuns in reducer SUCCESS', action);
+            console.log('Am ajuns in reducer CUMVA', action);
             return { ...state, isLoggedIn: true, loggedInUserInfo: action.payload };
         case 'DELETE_USER':
             console.log('Am ajuns in reducer ERROR', action);

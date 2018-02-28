@@ -7,10 +7,10 @@ export const initLogin = ({ username, password }) => {
     return (dispatch) => {
         http.post('/users/login', { username, password })
             .then((response) => {
-                localStorage.setItem('JOBS_PROJECT_IS_LOGGED_IN', true);
-                localStorage.setItem('JOBS_PROJECT_USER_INFO', JSON.stringify(response.data));
+                localStorage.setItem('IS_LOGGED_IN', true);
+                localStorage.setItem('USER_INFO', JSON.stringify(response.data));
 
-                dispatch(getUsersData((response.data.userRoleId)));
+                // dispatch(getUsersData((response.data.userRoleId)));
                 dispatch(onLoginSuccess(response.data));
 
                 // dispatch(push('/home'))
@@ -30,7 +30,6 @@ export const initRegister = (value) => {
                 localStorage.setItem('JOBS_PROJECT_USER_INFO', JSON.stringify(response.data));
 
                 dispatch(onLoginSuccess(response.data));
-               // dispatch(increment());
             })
             .catch((error) => dispatch(onLoginFailure(error)));
     };

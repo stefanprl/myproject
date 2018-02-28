@@ -51,16 +51,16 @@ return(dispatch) => {
         .then((response) => {
             debugger;
             if (props === 1) {
-                this.setState({adminUsersData: response.data.usersInfoList});
+
                 dispatch(response.data.usersInfoList);
             }
             else if (props === 2) {
-                this.setState({companyUsersData: response.data.usersInfoList});
+
                 dispatch(response.data.usersInfoList);
             }
 
             else if (props === 3) {
-                this.setState({basicUsersData: response.data.usersInfoList});
+
                 dispatch(response.data.usersInfoList);
             }
 

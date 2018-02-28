@@ -1,0 +1,57 @@
+@font-face {
+    font-family: myFont;
+    src: url(https://fonts.googleapis.com/css?family=Roboto);
+}
+
+html {
+    background-color: #f0f0f0;
+    font-family: myFont;
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    padding-bottom: 0;
+    overflow-x: hidden;
+}
+
+.header-style {
+    background-color: red;
+    display: block;
+    padding: 20px;
+    color: #fff;
+    z-index: 100;
+}
+
+.sub-header {
+    background-color: lightblue;
+    width: 100%;
+    display: block;
+    z-index: -1;
+    min-height: 200px;
+    margin-top: -24px;
+    position: absolute;
+}
+
+.main-content-area {
+    margin-top: -36px;
+    display: block;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* to be converted into Material-UI way */
+}
+
+.landing-page {
+    display: block;
+    padding-top: -200px;
+
+}
+
+.landing-page > h1 {
+    position: absolute;
+    font-size: 5vw;
+    color: #263367;
+    padding-left: 2%;
+}
+
