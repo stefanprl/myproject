@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Grid  from 'material-ui/Grid';
 import './sidebar.css';
+import AdminMenu from '../AdminMenu';
+import {connect} from "react-redux";
+import * as adminActions from "../../Actions/admin";
 
 
 const styles = {
@@ -22,6 +25,7 @@ const styles = {
 
 function Sidebar(props) {
     const { classes } = props;
+
     return(
         <div className="sidebar-layout">
             <Grid container spacing={24}>
@@ -33,11 +37,18 @@ function Sidebar(props) {
                 </Grid>
 
                 <Grid item xs={12}>
-                    MENIU PERSONALIZAT
+                    { props.loggedInUserInfo.userRoleId === 1 ? <AdminMenu/> : null}
                 </Grid>
             </Grid>
         </div>
     );
 }
 
-export default withStyles(styles)(Sidebar);
+
+const mapStateToProps = (state) => ({
+    isLogged: state.auth.isLogged,
+    loggedInUserInfo: state.auth.loggedInUserInfo,
+});
+
+const SidebarC =  connect(mapStateToProps, null)(Sidebar);
+export default withStyles(styles)(SidebarC);

@@ -3,6 +3,7 @@ import IconButton from 'material-ui/IconButton';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Button from 'material-ui/Button';
+import LoginModal from '../LoginModal';
 import {connect} from 'react-redux';
 
 
@@ -27,7 +28,6 @@ class LoginButtonC extends Component{
 
     handleLogOut = () => {
         this.props.loginHandler(false);
-        // this.props.condRender(null);
 
     };
 
@@ -79,6 +79,7 @@ class LoginButtonC extends Component{
                     <Button variant="raised" color="secondary" onClick={this.handleOpen}>
                         Log in
                     </Button>
+                    <LoginModal openState={this.state.open} closeState={this.handleCloseModal} />
 
                 </div>
             );
@@ -91,7 +92,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-
+    isLogged: state.auth.isLogged,
 });
 
 const LoginButton = connect(mapStateToProps, mapDispatchToProps)(LoginButtonC);

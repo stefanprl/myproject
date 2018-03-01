@@ -5,17 +5,15 @@ import Header from '../Header';
 import Footer from '../Footer';
 import AdminContentArea from "../Admin/content-area";
 import LandingPage from "../../Pages/landing-page";
+import {connect} from 'react-redux';
+import {onAppInit} from "../../Actions/authentication";
 
 
 class Layout extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            userRoleId: null,
-            isLogged: false,
 
-        }
-    }
+    componentDidMount(){
+        this.props.onAppInit();
+    };
     render() {
 
         return (
@@ -27,15 +25,14 @@ class Layout extends Component {
                         <Header/>
 
                     </Grid>
-                    {this.state.isLogged === true ?
+                    {this.props.isLogged === true ?
                     <Grid item md={12}>
-
                         <div className="sub-header"></div>
                     </Grid>
                         : null}
                     <Grid item xs={12}>
-                        {this.state.isLogged === false ? <LandingPage/> : null}
-                        {this.state.userRoleId === 1 && this.state.isLogged === true? <AdminContentArea/> : null}
+                        {this.props.isLogged === false ? <LandingPage/> : null}
+                        {this.props.loggedInUserInfo.userRoleId === 1 && this.props.isLogged === true ? <AdminContentArea/> : null}
                     </Grid>
                 </Grid>
                 <Grid container spacing={0}>
@@ -49,4 +46,13 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+const mapStateToProps = (state) => ({
+        isLogged: state.auth.isLogged,
+        loggedInUserInfo: state.auth.loggedInUserInfo,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onAppInit: () => dispatch(onAppInit()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

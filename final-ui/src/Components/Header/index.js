@@ -8,6 +8,9 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import LoginButton from '../LoginButton';
 import {connect} from "react-redux";
+import { Link } from 'react-router-dom';
+
+import "../Layout/layout.css";
 
 const styles = {
     root: {
@@ -34,7 +37,7 @@ function MenuAppBar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="title" color="inherit" className={classes.flex}>
-                        ReactJS AROBS
+                            <Link className="logo" to="/"> ReactJS AROBS </Link>
                     </Typography>
                     <LoginButton
                     />

@@ -9,8 +9,6 @@ import { FormControl } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 import request from '../../Config/request.js';
 import {connect} from "react-redux";
-
-
 import { initLogin } from '../../Actions/authentication';
 
 function TabContainer(props) {
@@ -43,7 +41,6 @@ class LogRegC extends React.Component {
         firstName: '',
         lastName: '',
         showPassword: false,
-        userInfo: [],
   };
 
 
@@ -60,22 +57,45 @@ class LogRegC extends React.Component {
 
   userInfoHandler = (props) => {
       this.setState({userInfo: props});
-      // this.state.userInfo = props;
-      this.props.condRender(props);
 
   };
 
   loginRequest = () => {
-
-      this.props.login(this.state);
-      //           this.props.closeState(true);
+      this.props.initLoginFlow(this.state);
+      this.props.closeModal();
       //
       //         this.userInfoHandler(response.data);
 
   };
 
 
+  registerRequestUser = () => {
 
+      let userR = this.state.username;
+      let passR = this.state.password;
+      let fName = this.state.firstName;
+      let lName = this.state.lastName;
+
+      request.post('/users', {
+          username: userR,
+          password: passR,
+          firstName: fName,
+          lastName: lName,
+          userRoleId: 3
+      })
+          .then((response) => {
+              this.userInfoHandler(response.data);
+              this.props.closeState(true);
+              this.props.loginHandler(true);
+              // let userRole = response.data[0].userRoleId;
+
+
+
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+};
       
 
 
@@ -222,7 +242,7 @@ LogRegC.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    login: (valori) => dispatch(initLogin(valori)),
+    initLoginFlow: (value) => dispatch(initLogin(value)),
 });
 // const mapStateToProps = (state) => ({
 //

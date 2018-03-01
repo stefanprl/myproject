@@ -35,7 +35,7 @@ body {
 }
 
 .main-content-area {
-    margin-top: -36px;
+    margin-top: -12px;
     display: block;
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -53,5 +53,10 @@ body {
     font-size: 5vw;
     color: #263367;
     padding-left: 2%;
+}
+
+.logo {
+    text-decoration: none;
+    color: white;
 }
 
