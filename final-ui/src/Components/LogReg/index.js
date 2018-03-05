@@ -7,9 +7,8 @@ import Typography from 'material-ui/Typography';
 import Input, { InputLabel} from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
 import Button from 'material-ui/Button';
-import request from '../../Config/request.js';
 import {connect} from "react-redux";
-import { initLogin } from '../../Actions/authentication';
+import { initLogin, registerRequestUser } from '../../Actions/authentication';
 
 function TabContainer(props) {
   return (
@@ -40,6 +39,7 @@ class LogRegC extends React.Component {
         password: '',
         firstName: '',
         lastName: '',
+        contactInfoId: 2,
         showPassword: false,
   };
 
@@ -55,47 +55,19 @@ class LogRegC extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
-  userInfoHandler = (props) => {
-      this.setState({userInfo: props});
-
-  };
-
   loginRequest = () => {
       this.props.initLoginFlow(this.state);
-      this.props.closeModal();
       //
       //         this.userInfoHandler(response.data);
 
   };
 
-
-  registerRequestUser = () => {
-
-      let userR = this.state.username;
-      let passR = this.state.password;
-      let fName = this.state.firstName;
-      let lName = this.state.lastName;
-
-      request.post('/users', {
-          username: userR,
-          password: passR,
-          firstName: fName,
-          lastName: lName,
-          userRoleId: 3
-      })
-          .then((response) => {
-              this.userInfoHandler(response.data);
-              this.props.closeState(true);
-              this.props.loginHandler(true);
-              // let userRole = response.data[0].userRoleId;
+    registerRequest = () => {
+        this.props.registerUser(this.state);
+        this.props.closeModal();
+    };
 
 
-
-          })
-          .catch((error) => {
-              console.log(error);
-          });
-};
       
 
 
@@ -226,7 +198,7 @@ class LogRegC extends React.Component {
             
             <br></br>
             <br></br>
-            <Button onClick={this.registerRequestUser} variant="raised" color="secondary">Register</Button>
+            <Button onClick={this.registerRequest} variant="raised" color="secondary">Register</Button>
         
         
         
@@ -243,6 +215,7 @@ LogRegC.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
     initLoginFlow: (value) => dispatch(initLogin(value)),
+    registerUser: (value) => dispatch(registerRequestUser(value))
 });
 // const mapStateToProps = (state) => ({
 //

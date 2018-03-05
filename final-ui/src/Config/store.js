@@ -10,6 +10,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import authReducer from "../Reducers/auth-reducer";
 import adminReducer from "../Reducers/admin-reducer";
+import companyReducer from "../Reducers/company-reducer";
 
 
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 
     auth: authReducer,
     admin: adminReducer,
+    company: companyReducer,
     router: routerReducer
 });
 

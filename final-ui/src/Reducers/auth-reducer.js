@@ -22,7 +22,9 @@ const authReducer = (state = initialState, action) => {
             console.log('Am ajuns in reducer ERROR', action);
             return { ...state, error: action.error };
         case 'ON_REGISTER':
-            return { ...state, isLogged: null, loggedInUserInfo: null };
+            return { ...state};
+        case 'ON_LOGOUT':
+            return { ...state, isLogged: false, loggedInUserInfo: [] };
         default:
             return state;
     }

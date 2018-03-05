@@ -6,6 +6,9 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 import { Route, Link } from 'react-router-dom';
 import ConnectedSwitch from '../../Components/ConnectedSwitch';
+import Table from '../Table';
+import {connect} from "react-redux";
+import * as adminActions from "../../Actions/admin";
 
 function TabContainer(props) {
     return (
@@ -35,6 +38,15 @@ class TabsWrappedLabel extends Component {
     handleChange = (event, value) => {
         this.setState({value});
     };
+    getUsersData = () => {
+        this.props.getUsers(1);
+        this.props.getUsers(2);
+        this.props.getUsers(3);
+    };
+    componentWillMount(){
+        this.getUsersData();
+
+    }
 
     render() {
         const { value } = this.state;
@@ -50,21 +62,24 @@ class TabsWrappedLabel extends Component {
                     </Tabs>
                 </AppBar>
                 {value === 0 &&
-                <TabContainer>Something
+                <TabContainer>
                     <ConnectedSwitch >
-                        <Route exact path="/users" render={() => (<h1>Test</h1>)} />
+                        <Route exact path="/users" />
                         <Route path='*' render={() => (<h1>Not defined</h1>)} />
                     </ConnectedSwitch>
+                    <Table usersData={this.props.basicUsersData || []} getUsersData={this.getUsersData} />
                 </TabContainer>}
-                {value === 1 && <TabContainer>Something 2
+                {value === 1 && <TabContainer>
                     <ConnectedSwitch >
-                        <Route exact path="/company-users" render={() => (<h1>admin</h1>)} />
+                        <Route exact path="/company-users"/>
                     </ConnectedSwitch>
+                    <Table usersData={this.props.companyUsersData || []} getUsersData={this.getUsersData} />
                 </TabContainer>}
-                {value === 2 && <TabContainer>Something 3
+                {value === 2 && <TabContainer>
                     <ConnectedSwitch >
-                        <Route exact path="/admin-users" render={() => (<h1>Test3</h1>)} />
+                        <Route exact path="/admin-users" />
                     </ConnectedSwitch>
+                    <Table usersData={this.props.adminUsersData || []} getUsersData={this.getUsersData} />
                 </TabContainer>}
             </div>
         );
@@ -75,4 +90,16 @@ TabsWrappedLabel.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TabsWrappedLabel);
+const mapStateToProps = (state) => ({
+    basicUsersData: state.admin.basicUsersData,
+    companyUsersData: state.admin.companyUsersData,
+    adminUsersData: state.admin.adminUsersData,
+});
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getUsers: (value) => dispatch(adminActions.getUsersData(value))
+    }
+};
+const TabsWrappedLabelC = connect(mapStateToProps, mapDispatchToProps)(TabsWrappedLabel);
+
+export default withStyles(styles)(TabsWrappedLabelC);

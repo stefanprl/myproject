@@ -3,10 +3,11 @@ import Grid from 'material-ui/Grid';
 import Sidebar from '../Sidebar';
 import Tabs from '../Tabs';
 import '../Layout/layout.css';
-import './admin-style.css';
+import './company-style.css';
 import {connect} from 'react-redux';
 import * as adminActions from "../../Actions/admin";
-
+import Paper from 'material-ui/Paper';
+import CompanyList from '../CompanyList';
 
 function AdminContentArea(props) {
 
@@ -19,8 +20,21 @@ function AdminContentArea(props) {
                     </div>
                 </Grid>
                 <Grid item lg={10} md={9} xs={12}>
-                    <div className="main-content-area">
-                        <Tabs/>
+                    <div>
+                        <Grid container spacing={8}>
+                        <Grid item md={6} xs={6}>
+                            <Paper>
+                                <h1>Companiile mele</h1>
+                                <CompanyList />
+                            </Paper>
+                        </Grid>
+                        <Grid item md={6} xs={6}>
+                            <Paper>
+                                <h1>Joburile companiilor</h1>
+                                <CompanyList/>
+                            </Paper>
+                        </Grid>
+                        </Grid>
 
                     </div>
 
@@ -29,6 +43,12 @@ function AdminContentArea(props) {
         </div>
     );
 }
+
+const mapStateToProps = (state) => ({
+
+    companiesData: state.company.companiesData,
+
+});
 
 const mapDispatchToProps = (dispatch) => ({
 

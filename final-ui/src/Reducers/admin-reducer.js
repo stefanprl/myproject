@@ -3,6 +3,7 @@ const initialState = {
     basicUsersData: [],
     companyUsersData: [],
     adminUsersData: [],
+    usersData: [],
 
     //states used when an admin creates a new user
     selectedFirstName: '',
@@ -32,10 +33,17 @@ const adminReducer = (state = initialState, action) => {
             console.log('Am ajuns in reducer CUMVA', action);
             return { ...state, isLoggedIn: true, loggedInUserInfo: action.payload };
         case 'DELETE_USER':
-            console.log('Am ajuns in reducer ERROR', action);
-            return { ...state, error: action.error };
-        case 'GET_USERS':
+            console.log('Am ajuns in reducer si am sters utilizatorul');
+            return { ...state, error: action.payload };
+        case 'RETURN_BASIC_USERS':
+            console.log("Am luat utilizatorii normali");
             return { ...state, basicUsersData: action.payload};
+        case 'RETURN_COMPANY_USERS':
+            console.log("Am luat utilizatorii companie");
+            return { ...state, companyUsersData: action.payload};
+        case 'RETURN_ADMIN_USERS':
+            console.log("Am luat utilizatorii admini");
+            return { ...state, adminUsersData: action.payload};
         case 'GET_USER':
             return { ...state, isLoggedIn: null, loggedInUserInfo: null };
         case 'CLEAR_FIELDS':

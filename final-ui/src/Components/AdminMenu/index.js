@@ -7,6 +7,8 @@ import Select from 'material-ui/Select';
 import {connect} from 'react-redux';
 import * as adminActions from '../../Actions/admin';
 import '../Admin/admin-style.css';
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
 
 const styles = theme => ({
     root: {
@@ -24,14 +26,32 @@ const styles = theme => ({
         margin: theme.spacing.unit,
     },
 });
-
-
 class AdminMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            firstName: '',
+            lastName: '',
+            password: '',
+            userRoleId: 0,
+            contactInfoId: 2,
+        };
+    }
 
-    handleChange = name => event => {
+
+    handleChange = props => event => {
         this.setState({
-            [name]: event.target.value,
+            [props]: event.target.value,
         });
+    };
+    addUser = () => {
+        console.log(this.state);
+            this.props.addUsr(this.state);
+            this.props.getUsers(1);
+            this.props.getUsers(2);
+            this.props.getUsers(3);
+
     };
 
     handleChangeAdd = prop => event => {
@@ -42,14 +62,16 @@ class AdminMenu extends Component {
         const { classes } = this.props;
 
         return (
+            <div>
             <div className="admin-menu-style">
                 <FormControl>
                     <InputLabel>
                         First name
                     </InputLabel>
                     <Input
-                        name="selectedFirstName"
-                        onChange={this.handleChange('selectedFirstName')}
+                        value={this.state.firstName}
+                        name="firstName"
+                        onChange={this.handleChange('firstName')}
                     />
                 </FormControl>
                 <div>
@@ -58,7 +80,8 @@ class AdminMenu extends Component {
                             Last Name
                         </InputLabel>
                         <Input
-                            onChange={this.handleChange('selectedLastName')}
+                            value={this.state.lastName}
+                            onChange={this.handleChange('lastName')}
                         />
                     </FormControl>
                 </div>
@@ -68,7 +91,7 @@ class AdminMenu extends Component {
                             Username
                         </InputLabel>
                         <Input
-                            onChange={this.handleChange('selectedUsername')}
+                            onChange={this.handleChange('username')}
                         />
                     </FormControl>
                     <div>
@@ -77,7 +100,8 @@ class AdminMenu extends Component {
                                 Password
                             </InputLabel>
                             <Input
-                                onChange={this.handleChange('selectedPassword')}
+                                value={this.state.password}
+                                onChange={this.handleChange('password')}
                                 type='password'
                             />
                         </FormControl>
@@ -85,10 +109,11 @@ class AdminMenu extends Component {
                             <FormControl className={classes.formControl}>
                                 <InputLabel >User role</InputLabel>
                                 <Select
-                                    onChange={this.handleChange('selectedRole')}
+                                    value={this.state.userRoleId}
+                                    onChange={this.handleChange('userRoleId')}
                                     native={true}
                                     inputProps={{
-                                        name: 'roles',
+                                        name: 'userRole',
                                         id: 'user-roles',
                                     }}
                                 >   <option defaultValue={0} disabled ></option>
@@ -98,12 +123,15 @@ class AdminMenu extends Component {
                                 </Select>
                             </FormControl>
                         </div>
-                        {/*<div className="create-button">*/}
-                        {/*<Button variant="fab" color="primary" aria-label="add" className={classes.button}>*/}
-                        {/*<AddIcon />*/}
-                        {/*</Button>*/}
-                        {/*</div>*/}
+
                     </div>
+                </div>
+
+            </div>
+                <div className="create-button">
+                <Button variant="fab" color="primary" aria-label="add" onClick={this.addUser}>
+                    <AddIcon/>
+                </Button>
                 </div>
             </div>
 
@@ -116,12 +144,11 @@ AdminMenu.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    selectedFirstName: state.admin.selectedFirstName,
-    selectedRole: state.admin.selectedRole,
-    selectedUsername: state.admin.selectedUsername,
-    selectedLastName: state.admin.selectedLastName,
-    selectedPassword: state.admin.selectedPassword,
-});
 
-const AdminMenuC = connect(mapStateToProps, null)(AdminMenu);
+});
+const mapDispatchToProps = (dispatch) => ({
+    addUsr: (values) => dispatch(adminActions.registerRequest(values)),
+    getUsers: (value) => dispatch(adminActions.getUsersData(value)),
+});
+const AdminMenuC = connect(mapStateToProps, mapDispatchToProps)(AdminMenu);
 export default withStyles(styles)(AdminMenuC);

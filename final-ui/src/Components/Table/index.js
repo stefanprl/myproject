@@ -22,6 +22,8 @@ import FilterListIcon from 'material-ui-icons/FilterList';
 import ModeEdit from 'material-ui-icons/ModeEdit';
 import { lighten } from 'material-ui/styles/colorManipulator';
 import EditUser from '../EditUser';
+import {connect} from "react-redux";
+import * as adminActions from "../../Actions/admin";
 
 const columnData = [
     { id: 'username', numeric: false, disablePadding: true, label: 'Username' },
@@ -30,18 +32,12 @@ const columnData = [
     { id: 'updated', numeric: true, disablePadding: false, label: 'Updated at' },
 ];
 
-
-
-
 class EnhancedTableHead extends React.Component {
     createSortHandler = property => event => {
         this.props.onRequestSort(event, property);
     };
-    // componentDidMount(){
-    //     this.props.getBasicUsers(this.prop.userType);
-    // }
-    render() {
 
+    render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
 
         return (
@@ -143,7 +139,7 @@ let EnhancedTableToolbar = props => {
                 {numSelected > 0 ? (
                     <Tooltip title="Delete">
 
-                        <IconButton aria-label="Delete" onClick={props.handleDeleteUsers}>
+                        <IconButton aria-label="Delete"  onClick={props.handleDeleteUsers}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
@@ -187,12 +183,15 @@ class EnhancedTable extends React.Component {
             order: 'asc',
             orderBy: 'username',
             selected: [],
-            data: [].sort((a, b) => (a.name < b.name ? -1 : 1)),
+            data: this.props.usersData.sort((a, b) => (a.name < b.name ? -1 : 1)),
             page: 0,
             rowsPerPage: 5,
             open: false,
         };
     }
+
+
+
 
 
     handleRequestSort = (event, property) => {
@@ -256,12 +255,12 @@ class EnhancedTable extends React.Component {
         let idsToBeDeleted = this.state.selected;
         for(let i=0; i < idsToBeDeleted.length; i++){
             this.props.deleteUser(idsToBeDeleted[i]);
-            // console.log(idsToBeDeleted[i]+ " a fost sters.");
+            console.log(idsToBeDeleted[i]+ " a fost sters.");
         }
         if(this.props.userRole === 1){
-            this.props.getUsersData(1);
-            this.props.getUsersData(2);
-            this.props.getUsersData(3);
+            this.props.getUsers(1);
+            this.props.getUsers(2);
+            this.props.getUsers(3);
 
         }
         this.setState({selected: []});
@@ -284,21 +283,10 @@ class EnhancedTable extends React.Component {
             selected: []});
     };
 
-    // componentDidMount(){
-    //     if(this.props.userRole === 1){
-    //         this.props.getUsersData(1);
-    //         this.props.getUsersData(2);
-    //         this.props.getUsersData(3);
-    //
-    //     }
-    // }
 
-    componentWillReceiveProps(nextProps, nextContext){
-
+    componentWillReceiveProps(nextProps) {
+            nextProps.usersData;
     }
-
-
-
 
     render() {
         const { classes } = this.props;
@@ -339,7 +327,7 @@ class EnhancedTable extends React.Component {
                                         <TableCell numeric>{n.createdAt}</TableCell>
                                         <TableCell numeric>{n.updatedAt}</TableCell>
                                         <TableCell padding="checkbox">
-                                            <IconButton variant="fab" color="primary" aria-label="edit" onClick={this.handleEditUser}>
+                                            <IconButton variant="fab" color="primary" aria-label="edit">
                                                 <ModeEdit/>
                                             </IconButton>
 
@@ -397,4 +385,18 @@ EnhancedTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EnhancedTable);
+
+const mapStateToProps = (state) => ({
+    userRole: state.auth.loggedInUserInfo.userRoleId,
+    basicUsersData: state.admin.basicUsersData,
+    companyUsersData: state.admin.companyUsersData,
+    adminUsersData: state.admin.adminUsersData,
+});
+const mapDispatchToProps = (dispatch) => ({
+    getUsers: (value) => dispatch(adminActions.getUsersData(value)),
+    deleteUser: (value) => dispatch(adminActions.deleteUser(value)),
+
+});
+const EnhancedTableC = connect(mapStateToProps, mapDispatchToProps)(EnhancedTable);
+
+export default withStyles(styles)(EnhancedTableC);

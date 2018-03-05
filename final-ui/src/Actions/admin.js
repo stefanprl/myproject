@@ -1,25 +1,20 @@
 import request from "../Config/request";
+import '../Reducers/admin-reducer';
 
-export const getUsersData = (props) => {
+export const getUsersData = (value) => {
 
     return(dispatch) => {
-        request.get("/userroles/" + props)
+        request.get("/userroles/" + value)
             .then((response) => {
-                if (props === 1) {
-
-                    dispatch(response.data.usersInfoList);
-                    console.log(response.data.usersInfoList);
+                if (value === 1) {
+                    dispatch(getAdminUsers(response.data.usersInfoList));
                 }
-                else if (props === 2) {
-
-                    dispatch(response.data.usersInfoList);
+                else if (value === 2) {
+                    dispatch(getCompanyUsers(response.data.usersInfoList));
                 }
-
-                else if (props === 3) {
-
-                    dispatch(response.data.usersInfoList);
+                else if (value === 3) {
+                    dispatch(getBasicUsers(response.data.usersInfoList));
                 }
-
             })
             .catch((error) => {
                 console.log(error);
@@ -28,26 +23,73 @@ export const getUsersData = (props) => {
 };
 
 export const registerRequest = (values) => {
-
-    request.post('/users', values)
+    return(dispatch) => {
+    console.log(values);
+        console.log("am ajuns la actiune");
+    request.post('/users', {
+        username: values.username,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        userRoleId: values.userRoleId,
+        contactInfoId: values.contactInfoId,
+    })
         .then((response) => {
-            console.log(response);
-            // let userRole = response.data[0].userRoleId;
-            if(this.state.userRole === 1){
-                this.getUsersData(1);
-                this.getUsersData(2);
-                this.getUsersData(3);
-            }
+            dispatch(registerSuccess());
+            getUsersData(1);
+            getUsersData(2);
+            getUsersData(3);
 
         })
         .catch((error) => {
             console.log(error);
         });
 
-        return {type: "CREATE_USER"};
+    }
+};
+
+export const deleteUser = (id) => {
+    return (dispatch) => {
+
+        request.delete('/users/' + id, {})
+            .then((response) => {
+                console.log("User " + id + " deleted successfully!");
+                dispatch(userDeleted());
+                dispatch(getUsersData(1));
+                dispatch(getUsersData(2));
+                dispatch(getUsersData(3));
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 };
 
 
 export const clearFields = () => {
 
+};
+
+export const registerSuccess = () => {
+    console.log("ajunge aici la succes?");
+    return { type: "CREATE_USER"};
+};
+
+
+export const getBasicUsers = (payload) => {
+    return {type: "RETURN_BASIC_USERS", payload };
+};
+
+export const getAdminUsers = (payload) => {
+    return {type: "RETURN_ADMIN_USERS", payload};
+};
+
+export const getCompanyUsers = (payload) => {
+    return {type: "RETURN_COMPANY_USERS", payload};
+};
+
+export const userDeleted = (payload) => {
+    return {type: "DELETE_USER", payload};
 };

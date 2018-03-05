@@ -61,8 +61,8 @@ function EditUser(props) {
                             classes={{
                                 inkbar: classes.inputInkbar,
                             }}
-                            onChange={props.handleChange('editedUsername')}
-                            value={props.editedUsername}
+                            // onChange={props.handleChange('editedUsername')}
+                            // value={props.editedUsername}
 
                         />
                         <FormHelperText id="name-helper-text">{props.defaultUsername}</FormHelperText>
@@ -83,8 +83,8 @@ function EditUser(props) {
                             classes={{
                                 inkbar: classes.inputInkbar,
                             }}
-                            onChange={props.handleChange('editedFName')}
-                            value={props.editedFName}
+                            // onChange={props.handleChange('editedFName')}
+                            // value={props.editedFName}
 
                         />
                         <FormHelperText id="name-helper-text">{props.defaultFirstName}</FormHelperText>
@@ -105,8 +105,8 @@ function EditUser(props) {
                             classes={{
                                 inkbar: classes.inputInkbar,
                             }}
-                            onChange={props.handleChange('editedLName')}
-                            value={props.editedLName}
+                            // onChange={props.handleChange('editedLName')}
+                            // value={props.editedLName}
 
                         />
                         <FormHelperText id="name-helper-text">{props.defaultLastName}</FormHelperText>

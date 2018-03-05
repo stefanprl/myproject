@@ -5,6 +5,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import Button from 'material-ui/Button';
 import LoginModal from '../LoginModal';
 import {connect} from 'react-redux';
+import { onLogout } from '../../Actions/authentication';
 
 
 
@@ -14,6 +15,7 @@ class LoginButtonC extends Component{
         this.state={
             anchorEl: null,
             open: false,
+            openMenu: false
 
         }
     }
@@ -26,10 +28,6 @@ class LoginButtonC extends Component{
         this.setState({ anchorEl: null });
     };
 
-    handleLogOut = () => {
-        this.props.loginHandler(false);
-
-    };
 
     handleOpen = () => {
         this.setState({ open: true });
@@ -38,7 +36,9 @@ class LoginButtonC extends Component{
     handleCloseModal = () => {
         this.setState({ open: false });
     };
-
+    onLogout = () => {
+        this.props.onLogout();
+    };
     render(){
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
@@ -68,7 +68,7 @@ class LoginButtonC extends Component{
                         onClose={this.handleClose}
                     >
                         <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={this.handleLogOut}>Log out</MenuItem>
+                        <MenuItem onClick={this.onLogout}>Log out</MenuItem>
                     </Menu>
                 </div>
 
@@ -88,7 +88,7 @@ class LoginButtonC extends Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
+    onLogout: () => dispatch(onLogout()),
 });
 
 const mapStateToProps = (state) => ({

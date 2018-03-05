@@ -5,8 +5,8 @@ import { withStyles } from 'material-ui/styles';
 import Grid  from 'material-ui/Grid';
 import './sidebar.css';
 import AdminMenu from '../AdminMenu';
+import CompanyMenu from '../CompanyMenu';
 import {connect} from "react-redux";
-import * as adminActions from "../../Actions/admin";
 
 
 const styles = {
@@ -38,6 +38,7 @@ function Sidebar(props) {
 
                 <Grid item xs={12}>
                     { props.loggedInUserInfo.userRoleId === 1 ? <AdminMenu/> : null}
+                    { props.loggedInUserInfo.userRoleId === 2 ? <CompanyMenu/> : null}
                 </Grid>
             </Grid>
         </div>
