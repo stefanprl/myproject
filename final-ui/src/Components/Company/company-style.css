@@ -5,10 +5,25 @@
     left: 10vw;
 }
 
-.admin-menu-style{
+.company-menu-style{
     padding-bottom: 30px;
 }
 
 .footer-padding {
     padding-bottom: 50px;
+}
+
+.main-content {
+    margin-top: -10px;
+    display: block;
+}
+
+h4 {
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.zero-padding {
+    padding-top: 0;
 }

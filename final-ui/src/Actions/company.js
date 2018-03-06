@@ -5,7 +5,6 @@ export const getMyCompanies = (id) => {
     return(dispatch) => {
         request.get("/companies/user/" + id)
             .then((response) => {
-                console.log(response);
                 dispatch(getCompanies(response.data));
             })
             .catch((error) => {
@@ -14,7 +13,7 @@ export const getMyCompanies = (id) => {
     }
 };
 
-export const createCompany = (values) => {
+export const createCompany = (values, userId) => {
     return(dispatch) => {
         request.post('/companies', {
             name : values.name,
@@ -23,13 +22,30 @@ export const createCompany = (values) => {
         })
             .then((response) => {
                 dispatch(createdCompany());
-
+                dispatch(getMyCompanies(userId))
             })
             .catch((error) => {
                 console.log(error);
             });
 
     }
+};
+
+export const deleteCompany = (id) => {
+    return (dispatch) => {
+
+        request.delete('/companies/' + id, {})
+            .then((response) => {
+                console.log("Company " + id + " deleted successfully!");
+                dispatch(companyDeleted());
+
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 };
 
 export const createJob = (values) => {
@@ -50,9 +66,15 @@ export const createJob = (values) => {
 export const getMyJobs = (value) => {
 
     return(dispatch) => {
-        request.get("/jobs")
+        request.get("/jobs", {
+        })
             .then((response) => {
-
+                let myJobs = [];
+                for(let i=0; i<response.data.length; i++){
+                    if (response.data[i].companyId === value)
+                        myJobs.push(response.data[i]);
+                }
+                dispatch(getJobs(myJobs));
             })
             .catch((error) => {
                 console.log(error);
@@ -61,10 +83,22 @@ export const getMyJobs = (value) => {
 };
 
 export const createdCompany = () => {
-    return {type: "CREATE_COMPANY" };
+    return { type: "CREATE_COMPANY" };
 };
 
 export const getCompanies = (payload) => {
-    return {type: "GET_COMPANIES", payload };
+    return { type: "GET_COMPANIES", payload };
+};
+
+export const companyDeleted = () => {
+    return { type: "DELETE_COMPANY" }
+};
+
+export const jobCreated = () => {
+    return { type: "CREATE_JOB" };
+};
+
+export const getJobs = (payload) => {
+    return { type: "GET_JOBS", payload};
 };
 

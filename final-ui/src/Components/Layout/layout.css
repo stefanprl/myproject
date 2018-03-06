@@ -60,3 +60,24 @@ body {
     color: white;
 }
 
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -50px;
+}
+
+.push {
+    height: 42px;
+}
+
+.jobs-description {
+    border-right: 1px solid dimgrey;
+    display: block;
+    padding: 5px;
+    text-align: center;
+}
+
+.jobs-availability {
+    display: block;
+    padding: 5px;
+    text-align: center;
+}

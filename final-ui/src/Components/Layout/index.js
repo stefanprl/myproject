@@ -29,19 +29,18 @@ class Layout extends Component {
     render() {
 
         return (
-            <div>
+            <div className="wrapper">
                 <Grid container spacing={24}>
 
                     <Grid item xs={12}>
-
                         <Header/>
-
                     </Grid>
                     {this.props.isLogged === true ?
                     <Grid item md={12}>
                         <div className="sub-header"></div>
                     </Grid>
                         : null}
+
                     <Grid item xs={12}>
                         {this.props.isLogged === false ? <LandingPage/> : null}
                         {this.props.loggedInUserInfo.userRoleId === 1 && this.props.isLogged === true ? <AdminContentArea/> : null}
@@ -49,10 +48,10 @@ class Layout extends Component {
                         {this.props.loggedInUserInfo.userRoleId === 3 && this.props.isLogged === true? <h1>UTILIZATOR NORMAL</h1> : null}
                     </Grid>
                 </Grid>
+                <div className="push"></div>
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
                         <Footer/>
-
                     </Grid>
                 </Grid>
             </div>

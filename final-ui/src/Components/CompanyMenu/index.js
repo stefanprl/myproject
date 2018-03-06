@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Input, { InputLabel} from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
-import Select from 'material-ui/Select';
 import {connect} from 'react-redux';
 import * as companyActions from '../../Actions/company';
-import '../Admin/admin-style.css';
+import '../Company/company-style.css';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
@@ -41,11 +40,14 @@ class AdminMenu extends Component {
             [props]: event.target.value,
         });
     };
+
+    getCompanies = (id) => {
+        this.props.getCompanies(id);
+    };
     addCompany = () => {
-        this.props.addComp(this.state);
+        this.props.addComp(this.state, this.props.userId);
         this.clearFields();
-
-
+        this.getCompanies(this.props.userId);
     };
 
     clearFields = () => {
@@ -56,11 +58,10 @@ class AdminMenu extends Component {
     };
 
     render() {
-        const { classes } = this.props;
 
         return (
             <div>
-                <div className="admin-menu-style">
+                <div className="company-menu-style">
                     <FormControl>
                         <InputLabel>
                             Company Name
@@ -91,7 +92,8 @@ const mapStateToProps = (state) => ({
     userId: state.auth.loggedInUserInfo.id,
 });
 const mapDispatchToProps = (dispatch) => ({
-    addComp: (values) => dispatch(companyActions.createCompany(values)),
+    addComp: (values, userId) => dispatch(companyActions.createCompany(values, userId)),
+    getCompanies: (value) => dispatch(companyActions.getMyCompanies(value)),
 
 });
 const AdminMenuC = connect(mapStateToProps, mapDispatchToProps)(AdminMenu);
