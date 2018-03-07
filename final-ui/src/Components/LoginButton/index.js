@@ -6,6 +6,7 @@ import Button from 'material-ui/Button';
 import LoginModal from '../LoginModal';
 import {connect} from 'react-redux';
 import { onLogout } from '../../Actions/authentication';
+import { Link } from 'react-router-dom';
 
 
 
@@ -67,7 +68,7 @@ class LoginButtonC extends Component{
                         open={open}
                         onClose={this.handleClose}
                     >
-                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={this.handleClose}><Link to="/profile">Profile</Link></MenuItem>
                         <MenuItem onClick={this.onLogout}>Log out</MenuItem>
                     </Menu>
                 </div>

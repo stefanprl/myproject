@@ -11,6 +11,7 @@ import createHistory from 'history/createBrowserHistory';
 import authReducer from "../Reducers/auth-reducer";
 import adminReducer from "../Reducers/admin-reducer";
 import companyReducer from "../Reducers/company-reducer";
+import userReducer from "../Reducers/user-reducer";
 
 
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     admin: adminReducer,
     company: companyReducer,
+    user: userReducer,
     router: routerReducer
 });
 

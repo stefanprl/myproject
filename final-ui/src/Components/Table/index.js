@@ -285,7 +285,6 @@ class EnhancedTable extends React.Component {
 
 
     componentWillReceiveProps(nextProps) {
-            nextProps.usersData;
     }
 
     render() {

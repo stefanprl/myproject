@@ -31,13 +31,34 @@ export const createCompany = (values, userId) => {
     }
 };
 
-export const deleteCompany = (id) => {
+export const deleteCompany = (id, userId) => {
     return (dispatch) => {
 
         request.delete('/companies/' + id, {})
             .then((response) => {
                 console.log("Company " + id + " deleted successfully!");
                 dispatch(companyDeleted());
+                dispatch(getMyCompanies(userId))
+
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+};
+
+export const editCompany = (id, values, userId) => {
+    return (dispatch) => {
+
+        request.put('/companies/' + id, {
+            name : values,
+        })
+            .then((response) => {
+                console.log("Company " + id + " edited successfully!");
+                dispatch(companyEdited());
+                dispatch(getMyCompanies(userId))
 
 
 
@@ -92,6 +113,10 @@ export const getCompanies = (payload) => {
 
 export const companyDeleted = () => {
     return { type: "DELETE_COMPANY" }
+};
+
+export const companyEdited = () => {
+    return { type: "EDIT_COMPANY" }
 };
 
 export const jobCreated = () => {

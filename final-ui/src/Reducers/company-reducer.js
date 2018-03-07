@@ -13,6 +13,9 @@ const companyReducer = (state = initialState, action) => {
         case 'DELETE_COMPANY':
             console.log('Am ajuns in reducer si am sters compania');
             return {...state};
+        case 'EDIT_COMPANY':
+            console.log('Am ajuns in reducer si am editat compania');
+            return {...state};
         case 'GET_COMPANIES':
             console.log('Am ajuns in reducer si am afisat companiile');
             return { ...state, companiesData: action.payload };

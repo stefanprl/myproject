@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemSecondaryAction, ListItemText } from 'material-ui/List';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import JobImage from '../../Media/job.png';
 import * as companyActions from "../../Actions/company";
@@ -92,7 +92,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     addComp: (values) => dispatch(companyActions.createCompany(values)),
     getCompanies: (value) => dispatch(companyActions.getMyCompanies(value)),
-    deleteCompany: (value) => dispatch(companyActions.deleteCompany(value)),
+    deleteCompany: (value, userId) => dispatch(companyActions.deleteCompany(value, userId)),
 
 });
 const CompanyJobsC = connect(mapStateToProps, mapDispatchToProps)(CompanyJobs);
