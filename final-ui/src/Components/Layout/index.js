@@ -13,7 +13,7 @@ import {getUsersData} from "../../Actions/admin";
 import {getMyCompanies} from "../../Actions/company";
 import * as userActions from "../../Actions/user";
 import Profile from "../../Pages/profile";
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import ConnectedSwitch from '../../Components/ConnectedSwitch';
 
 
@@ -21,21 +21,27 @@ class Layout extends Component {
 
     componentDidMount(){
         this.props.onAppInit();
-        if(JSON.parse(localStorage.getItem("USER_INFO")).userRoleId === 1) {
-            this.props.getUsersData(1);
-            this.props.getUsersData(2);
-            this.props.getUsersData(3);
-        }
-
-        if(JSON.parse(localStorage.getItem("USER_INFO")).userRoleId === 2) {
-            this.props.getCompaniesData(this.props.loggedInUserInfo.id)
-        }
-
-        if(JSON.parse(localStorage.getItem("USER_INFO")).userRoleId === 3) {
-            this.props.getAllJobs();
-        }
-
     };
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.isLogged && !this.props.isLogged) {
+            if (JSON.parse(localStorage.getItem("USER_INFO")).userRoleId === 1) {
+                this.props.getUsersData(1);
+                this.props.getUsersData(2);
+                this.props.getUsersData(3);
+            }
+
+            if (JSON.parse(localStorage.getItem("USER_INFO")).userRoleId === 2) {
+                this.props.getCompaniesData(this.props.loggedInUserInfo.id)
+            }
+
+            if (JSON.parse(localStorage.getItem("USER_INFO")).userRoleId === 3) {
+                this.props.getAllJobs();
+                this.props.getUserInfo(newProps.loggedInUserInfo.id);
+            }
+        }
+    }
+
     render() {
         return (
             <div className="wrapper">
@@ -52,7 +58,7 @@ class Layout extends Component {
 
                     <Grid item xs={12}>
                         {this.props.isLogged === false ? <LandingPage/> : null}
-                        {this.props.loggedInUserInfo.userRoleId === 1 && this.props.isLogged === true ? <AdminContentArea/> : null}
+                        {this.props.loggedInUserInfo.userRoleId === 1 && this.props.isLogged === true? <AdminContentArea/> : null}
                         {this.props.loggedInUserInfo.userRoleId === 2 && this.props.isLogged === true? <CompanyContentArea /> : null}
                         {this.props.loggedInUserInfo.userRoleId === 3 && this.props.isLogged === true? <UserContentArea /> : null}
                         <ConnectedSwitch >
@@ -73,8 +79,8 @@ class Layout extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        isLogged: state.auth.isLogged,
-        loggedInUserInfo: state.auth.loggedInUserInfo,
+    isLogged: state.auth.isLogged,
+    loggedInUserInfo: state.auth.loggedInUserInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -82,6 +88,7 @@ const mapDispatchToProps = (dispatch) => ({
     getUsersData: () => dispatch(getUsersData()),
     getCompaniesData: (id) => dispatch(getMyCompanies(id)),
     getAllJobs: () => dispatch(userActions.getAllJobs()),
+    getUserInfo: (id) => dispatch(userActions.getUserInfo(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

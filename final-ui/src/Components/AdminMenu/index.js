@@ -35,7 +35,7 @@ class AdminMenu extends Component {
             lastName: '',
             password: '',
             userRoleId: 0,
-            contactInfoId: null,
+            contactInfo: {},
         };
     }
 

@@ -35,7 +35,8 @@ return(dispatch) => {
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
-        userRoleId: 3
+        userRoleId: 3,
+        contactInfo: {}
     })
         .then((response) => {
             // let userRole = response.data[0].userRoleId;

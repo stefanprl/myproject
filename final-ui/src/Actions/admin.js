@@ -32,7 +32,7 @@ export const registerRequest = (values) => {
         firstName: values.firstName,
         lastName: values.lastName,
         userRoleId: values.userRoleId,
-        contactInfoId: values.contactInfoId,
+        contactInfo: values.contactInfo,
     })
         .then((response) => {
             dispatch(registerSuccess());

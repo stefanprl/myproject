@@ -39,7 +39,7 @@ class LogRegC extends React.Component {
         password: '',
         firstName: '',
         lastName: '',
-        contactInfoId: 2,
+        contactInfo: {},
         showPassword: false,
   };
 
