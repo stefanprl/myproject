@@ -12,3 +12,9 @@
 .footer-padding {
     padding-bottom: 50px;
 }
+
+.cv-modal {
+    position: absolute;
+    top: 90%;
+    left: 70%;
+}

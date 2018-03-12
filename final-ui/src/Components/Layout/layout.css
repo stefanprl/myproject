@@ -81,3 +81,10 @@ body {
     padding: 5px;
     text-align: center;
 }
+
+.add-cv {
+    position: absolute;
+    margin-top: -28px;
+    /*right: 160px;*/
+    left: 80vw;
+}

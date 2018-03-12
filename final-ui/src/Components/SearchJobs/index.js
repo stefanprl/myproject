@@ -16,7 +16,7 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        minWidth: 190,
+        minWidth: 180,
     },
     button: {
         margin: theme.spacing.unit,

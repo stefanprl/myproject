@@ -84,6 +84,53 @@ export const createJob = (values) => {
     }
 };
 
+// const MOCK_JOB = {
+//     name: 'New Job',
+//     description: 'xxxx',
+//     isAvailable: false,
+//     jobBenefitList: [
+//         {
+//             name: 'Open space ....'
+//         },
+//         {
+//             name: 'Attractove salary'
+//         }
+//     ],
+//     jobRequirementsList: [
+//         {
+//             name: 'Open space ....'
+//         },
+//         {
+//             name: 'Attractove salary'
+//         }
+//     ],
+// };
+//
+// export const createJob2 = (MOCK_JOB) => {
+//     return async (dispatch) => {
+//         try {
+//            const response =  await request.post('/jobs', MOCK_JOB);
+//
+//            const jobId = response.data.id;
+//
+//            for (let benefit of MOCK_JOB.jobBenefitList) {
+//                benefit.jobId = jobId;
+//
+//                await request.post('/jobbenefits', benefit);
+//            }
+//
+//             for (let requirement of MOCK_JOB.jobRequirementsList) {
+//                 requirement.jobId = jobId;
+//
+//                 await request.post('/jobrequirement', benefit);
+//             }
+//         }
+//         catch (error) {
+//             console.log(error);
+//         }
+//     }
+// };
+
 export const getMyJobs = (value) => {
 
     return(dispatch) => {
