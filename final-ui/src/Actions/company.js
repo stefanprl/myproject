@@ -150,6 +150,18 @@ export const getMyJobs = (value) => {
     }
 };
 
+export const deleteMyJob = (jobId, companyId) => {
+    return(dispatch) => {
+        request.delete("/jobs/"+jobId)
+            .then((response) => {
+                dispatch(getJobs(companyId));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+};
+
 export const createdCompany = () => {
     return { type: "CREATE_COMPANY" };
 };
@@ -172,5 +184,8 @@ export const jobCreated = () => {
 
 export const getJobs = (payload) => {
     return { type: "GET_JOBS", payload};
+};
+export const deleteJob = () => {
+    return { type: "DELETE_JOB"};
 };
 

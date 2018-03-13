@@ -16,6 +16,8 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import '../Layout/layout.css';
 import Divider from 'material-ui/Divider';
+import Button from 'material-ui/Button';
+import RightArrow from 'material-ui-icons/KeyboardArrowRight'
 
 const styles = theme => ({
     root: {
@@ -24,6 +26,9 @@ const styles = theme => ({
         maxHeight: 672,
         overflow: 'auto',
         backgroundColor: theme.palette.background.paper,
+    },
+    button: {
+        margin: theme.spacing.unit,
     },
 });
 
@@ -49,7 +54,7 @@ class CompanyJobs extends React.Component {
                                     <IconButton variant="fab" color="primary" aria-label="edit">
                                         <ModeEdit/>
                                     </IconButton>
-                                    <IconButton variant="fab" color="primary" aria-label="edit">
+                                    <IconButton variant="fab" color="primary" aria-label="delete" onClick={this.props.deleteJob(j.id, j.companyId)}>
                                         <Delete/>
                                     </IconButton>
                                 </ListItem>
@@ -70,6 +75,14 @@ class CompanyJobs extends React.Component {
                                         <h4>Available: </h4>
                                         {j.isAvailable ? <p>Yes</p> : <p>No</p>}
                                     </div>
+                                <div>
+                                    <h4>See who applied: </h4>
+                                    <div className="jobs-applicants">
+                                    <Button variant="fab" mini color="secondary" aria-label="add" className={classes.button}>
+                                        <RightArrow />
+                                    </Button>
+                                    </div>
+                                </div>
 
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
@@ -93,6 +106,7 @@ const mapDispatchToProps = (dispatch) => ({
     addComp: (values) => dispatch(companyActions.createCompany(values)),
     getCompanies: (value) => dispatch(companyActions.getMyCompanies(value)),
     deleteCompany: (value, userId) => dispatch(companyActions.deleteCompany(value, userId)),
+    deleteJob: (jobId, companyId) => dispatch(companyActions.deleteMyJob(jobId, companyId))
 
 });
 const CompanyJobsC = connect(mapStateToProps, mapDispatchToProps)(CompanyJobs);

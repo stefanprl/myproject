@@ -10,7 +10,6 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import Grid from 'material-ui/Grid';
 import TextField from 'material-ui/TextField';
-import ModeEdit from 'material-ui-icons/ModeEdit';
 
 const styles = theme => ({
     root: {
@@ -30,7 +29,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 190,
+        maxWidth: 190,
     },
 });
 
@@ -39,9 +38,12 @@ const styles = theme => ({
 class EditEducationForm extends Component {
 
     addWorkExperience = (values, userId) => {
-        this.props.addUserWorkExperience(values, userId);
-        this.props.closeModal();
-
+        if(values.startDate !== undefined || values.endDate !== undefined || values.institution !== undefined) {
+            this.props.addUserWorkExperience(values, userId);
+            this.props.closeModal();
+        } else {
+            console.log("Complete all fields");
+        }
     };
 
 
@@ -52,12 +54,12 @@ class EditEducationForm extends Component {
         return (
             <div>
                 <Grid container spacing={8} alignItems="center">
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                         <p>
                             Add new work experience.
                         </p>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={8}>
                         <div className="admin-menu-style">
                             <FormControl>
                                 <InputLabel>
@@ -87,7 +89,7 @@ class EditEducationForm extends Component {
                                     <TextField
                                         id="date"
                                         label="Start Date"
-                                        type="date"
+                                        type="month"
                                         defaultValue={this.props.startDate}
                                         onChange={this.props.handleChange("startDate")}
                                         className={classes.textField}
@@ -98,7 +100,7 @@ class EditEducationForm extends Component {
                                     <TextField
                                         id="date"
                                         label="End Date"
-                                        type="date"
+                                        type="month"
                                         defaultValue={this.props.endDate}
                                         onChange={this.props.handleChange("endDate")}
                                         className={classes.textField}
@@ -114,7 +116,7 @@ class EditEducationForm extends Component {
                     <div className="cv-modal">
                         <Button variant="fab" color="primary" aria-label="edit"
                                 onClick={() => this.addWorkExperience(this.props, this.props.userId)} >
-                            <ModeEdit/>
+                            <AddIcon/>
                         </Button>
                     </div>
                 </Grid>

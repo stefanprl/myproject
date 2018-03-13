@@ -38,8 +38,14 @@ const styles = theme => ({
 class EducationForm extends Component {
 
     addEducation = (values, userId) => {
-        this.props.addEducation(values, userId);
-        this.props.closeModal();
+
+        if(values.startDate !== undefined || values.endDate !== undefined || values.institution !== undefined) {
+            this.props.addEducation(values, userId);
+            this.props.closeModal();
+        }
+        else {
+            console.log("Complete all fields");
+        }
 
     };
 
@@ -51,12 +57,12 @@ class EducationForm extends Component {
         return (
             <div>
                 <Grid container spacing={8} alignItems="center">
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                         <p>
                             Add new education experience.
                         </p>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={8}>
                         <div className="admin-menu-style">
                             <FormControl>
                                 <InputLabel>

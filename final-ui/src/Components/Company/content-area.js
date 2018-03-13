@@ -9,6 +9,7 @@ import Paper from 'material-ui/Paper';
 import CompanyList from '../CompanyList';
 import CompanyJobs from '../CompanyJobs';
 import * as companyActions from "../../Actions/company";
+import ReactDOM from 'react-dom';
 
 class CompanyContentArea extends Component {
 
@@ -18,6 +19,8 @@ class CompanyContentArea extends Component {
 
     getJobs = (id) => {
         this.props.getJobs(id);
+        const tesNode = ReactDOM.findDOMNode(this.refs.jobs);
+            window.scrollTo(0, tesNode.offsetTop);
 
     };
     componentDidMount(){
@@ -28,25 +31,25 @@ class CompanyContentArea extends Component {
 
         return (
             <div className="footer-padding">
-                <Grid container spacing={24}>
-                    <Grid item lg={2} md={3} hidden={{smDown: true}}>
+                <Grid container spacing={24} alignItems="flex-start" justify="center">
+                    <Grid item xs={12} lg={2} md={3} >
                         <div className="sidebar-container">
                             <Sidebar/>
                         </div>
                     </Grid>
-                    <Grid item lg={10} md={9} xs={12} >
+                    <Grid item xs={12} lg={10} md={9} >
                         <div className="zero-padding">
                             <Grid container spacing={8}>
-                                <Grid item md={6} xs={6}>
+                                <Grid item md={6} xs={12}>
                                     <Paper>
                                         <h4>My Companies</h4>
                                         <CompanyList compData={this.props.companiesData} getComp={this.getCompanies} getJobs={this.getJobs}/>
                                     </Paper>
                                 </Grid>
-                                <Grid item md={6} xs={6}>
+                                <Grid item md={6} xs={12}>
                                     <Paper>
                                         <h4>Company jobs</h4>
-                                        <CompanyJobs jobsData={this.props.jobsData}  />
+                                        <CompanyJobs ref="jobs" jobsData={this.props.jobsData}  />
                                     </Paper>
                                 </Grid>
                             </Grid>

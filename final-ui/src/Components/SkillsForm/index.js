@@ -58,12 +58,12 @@ class SkillsForm extends Component {
         return (
             <div>
                 <Grid container spacing={8} alignItems="center">
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                         <h4>
                             Add new education experience.
                         </h4>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={8}>
                         <div className="admin-menu-style">
                             <div>
                                 <FormControl className={classes.formControl}>

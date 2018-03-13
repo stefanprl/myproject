@@ -41,7 +41,7 @@ class Profile extends Component {
         super(props);
         this.state={
             id: null,
-            institution: '',
+            institution: undefined,
             description: '',
             startDate: undefined,
             endDate: undefined,
@@ -108,10 +108,10 @@ class Profile extends Component {
                     </Grid>
                 </Grid>
                     <Grid container spacing={8}>
-                    <Grid item xs={1}>
+                    <Grid item xs={2}>
 
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={8}>
 
                         <div className="center-align">
                             <h2>Education</h2>
@@ -216,7 +216,7 @@ class Profile extends Component {
                         </div>
 
                     </Grid>
-                    <Grid item xs={1}>
+                    <Grid item xs={2}>
                     </Grid>
                 </Grid>
             </div>

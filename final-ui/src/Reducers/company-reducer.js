@@ -25,6 +25,9 @@ const companyReducer = (state = initialState, action) => {
         case 'GET_JOBS':
             console.log('Am ajuns in reducer si am luat job-urile');
             return {...state, jobsData: action.payload};
+        case 'DELETE_JOB':
+            console.log('Am ajuns in reducer si am sters job-ul');
+            return {...state};
         default:
             return state;
     }

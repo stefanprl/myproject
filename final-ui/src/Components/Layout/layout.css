@@ -80,11 +80,24 @@ body {
     display: block;
     padding: 5px;
     text-align: center;
+    border-right: 1px solid dimgrey;
 }
 
+.jobs-applicants {
+    display: block;
+    padding: 5px;
+    text-align: center;
+}
 .add-cv {
     position: absolute;
     margin-top: -28px;
     /*right: 160px;*/
-    left: 80vw;
+    left: 70vw;
+}
+
+@media screen and (max-width: 768px) {
+    .add-cv {
+        left: 60vw;
+    }
+
 }

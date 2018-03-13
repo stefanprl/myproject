@@ -83,7 +83,7 @@ class EditEducationForm extends Component {
                             </div>
                             <br></br>
                             <div>
-                                <form className={classes.container} noValidate>
+                                <FormControl>
                                     <TextField
                                         id="date"
                                         label="Start Date"
@@ -106,7 +106,7 @@ class EditEducationForm extends Component {
                                             shrink: true,
                                         }}
                                     />
-                                </form>
+                                </FormControl>
                             </div>
 
                         </div>
